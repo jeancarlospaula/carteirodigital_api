@@ -7,7 +7,7 @@ const contactController = new ContactController()
 
 contactRoutes.get(
   '/',
-  cors({ origin: process.env.CLIENT_URL }),
+  cors({ origin: process.env.CLIENT_URL?.split(',') }),
   contactController.sendContactEmail
 )
 
