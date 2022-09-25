@@ -5,10 +5,8 @@ import { ContactController } from '../controllers'
 const contactRoutes = Router()
 const contactController = new ContactController()
 
-contactRoutes.get(
-  '/',
-  cors({ origin: process.env.CLIENT_URL?.split(',') }),
-  contactController.sendContactEmail
-)
+contactRoutes.use(cors({ origin: process.env.CLIENT_URL?.split(',') }))
+
+contactRoutes.post('/', contactController.sendContactEmail)
 
 export { contactRoutes }
