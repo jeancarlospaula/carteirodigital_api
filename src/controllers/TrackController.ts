@@ -21,12 +21,18 @@ class TrackController implements ITrackController {
       })
     }
 
-    const trackingResult = fillOrderEvents({
+    const delivered = trackingData.entregue ? true : false
+
+    const trackingEvents = fillOrderEvents({
       events: trackingData.eventos,
-      delivered: trackingData.entregue ? true : false,
+      delivered,
     })
 
-    return res.status(200).json(trackingResult)
+    return res.status(200).json({
+      trackingCode,
+      delivered,
+      events: trackingEvents,
+    })
   }
 
   async getTrackedOrdersNumber(req: Request, res: Response): Promise<Response> {
