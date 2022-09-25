@@ -9,7 +9,10 @@ const trackedOrdersNumber = new TrackedOrdersNumberRepository()
 class TrackController implements ITrackController {
   async getTrackData(req: Request, res: Response): Promise<Response> {
     const { id: trackingCode } = req.params
+    console.log('Tracking order: ', trackingCode)
+
     const [trackingData] = await tracking([trackingCode])
+    console.log('Tracking data: ', JSON.stringify(trackingData, null, 2))
 
     if (!trackingData.sucesso || !trackingData.eventos?.length) {
       return res.status(400).json({
@@ -30,6 +33,7 @@ class TrackController implements ITrackController {
 
     return res.status(200).json({
       code: trackingCode,
+      packageType: trackingData.type || 'Não identificado',
       delivered,
       events: trackingEvents,
     })
