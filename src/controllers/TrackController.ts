@@ -1,12 +1,32 @@
 import { Request, Response } from 'express'
 import { ITrackController } from '../interfaces/controllers/ITrackController'
+import { fillOrderEvents } from '../lib/fillOrderEvents'
 import { TrackedOrdersNumberRepository } from '../repositories'
+import { tracking } from '../services/correios/tracking'
 
 const trackedOrdersNumber = new TrackedOrdersNumberRepository()
 
 class TrackController implements ITrackController {
   async getTrackData(req: Request, res: Response): Promise<Response> {
-    return res.status(400)
+    const { id: trackingCode } = req.params
+    const [trackingData] = await tracking([trackingCode])
+
+    if (!trackingData.sucesso || !trackingData.eventos?.length) {
+      return res.status(400).json({
+        error: {
+          message:
+            'Código inválido ou ainda não disponível na base de dados dos Correios do Brasil.',
+          code: trackingCode,
+        },
+      })
+    }
+
+    const trackingResult = fillOrderEvents({
+      events: trackingData.eventos,
+      delivered: trackingData.entregue ? true : false,
+    })
+
+    return res.status(200).json(trackingResult)
   }
 
   async getTrackedOrdersNumber(req: Request, res: Response): Promise<Response> {
