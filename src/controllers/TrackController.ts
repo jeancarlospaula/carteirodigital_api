@@ -29,7 +29,7 @@ class TrackController implements ITrackController {
     })
 
     return res.status(200).json({
-      trackingCode,
+      code: trackingCode,
       delivered,
       events: trackingEvents,
     })
