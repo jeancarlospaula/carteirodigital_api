@@ -1,14 +1,20 @@
 {
   "name": "carteirodigital_api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Back-end API da página oficial do Carteiro Digital",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsnd --respawn --transpile-only src/index.ts",
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "Rastreamento",
+    "Correios",
+    "Bot",
+    "Telegram",
+    "API"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
