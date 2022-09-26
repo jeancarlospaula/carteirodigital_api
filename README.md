@@ -21,3 +21,7 @@
 - `/contact`
 - Metódo: `GET`
 - Body: `name`, `email` e `message` 
+
+## Projetos relacionados - repositórios
+- [Carteiro Digital - Página Oficial](https://github.com/jeancarlospaula/carteirodigital_page)
+- [Carteiro Digital - Bot](https://github.com/jeancarlospaula/carteirodigital_bot)
