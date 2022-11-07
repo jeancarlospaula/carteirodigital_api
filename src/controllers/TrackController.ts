@@ -32,6 +32,8 @@ class TrackController implements ITrackController {
         delivered,
       })
 
+      await redis.incr('trackedOrders')
+
       return res.status(200).json({
         code: trackingCode,
         packageType: trackingData.type || 'Não identificado',
